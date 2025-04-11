@@ -4,7 +4,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.filters import SearchFilter , OrderingFilter
 from rest_framework.pagination import PageNumberPagination
-from rest_framework.mixins import ListModelMixin, CreateModelMixin , RetrieveModelMixin
+from rest_framework.mixins import ListModelMixin, CreateModelMixin , RetrieveModelMixin , DestroyModelMixin
 
 
 from store.filters import ProductFilter
@@ -74,7 +74,7 @@ class ReviewViewSet(ModelViewSet):
         return Reviews.objects.filter(product_id=product_id)
     def get_serializer_context(self):
         return {'product_id' : self.kwargs['product_pk']} 
-class CartViewSet(CreateModelMixin,GenericViewSet,RetrieveModelMixin ,ListModelMixin):
+class CartViewSet(ModelViewSet):
     queryset = Cart.objects.prefetch_related("items__product").all() 
     serializer_class = CartSerializer
 
