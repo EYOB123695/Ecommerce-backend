@@ -26,9 +26,10 @@ class ReviewSerializer(serializers.ModelSerializer):
         product_id  = self.context['product_id']
         return Reviews.objects.create(product_id = product_id , **validated_data)
 class CartSerializer(serializers.ModelSerializer):
+    id = serializers.UUIDField(read_only = True)
     class Meta:
         model = Cart
-        fields = ['id', 'title', 'unit_price']
+        fields = ['id']
     
 
     
